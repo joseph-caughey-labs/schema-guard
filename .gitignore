@@ -1,0 +1,10 @@
+/schema-guard
+/dist/
+*.test
+*.out
+.claude/
+CLAUDE.md
+MEMORY.md
+.cursor/
+.aider*
+.continue/
