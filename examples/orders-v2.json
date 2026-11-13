@@ -1,0 +1,41 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Orders", "version": "2.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Order": {
+        "type": "object",
+        "required": ["id", "status", "total", "lines"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^ord_[a-z0-9]+$" },
+          "status": { "enum": ["pending", "paid", "shipped", "refunded"] },
+          "total": { "$ref": "#/components/schemas/Money" },
+          "note": { "type": ["string", "null"], "maxLength": 500 },
+          "lines": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/components/schemas/Line" }
+          },
+          "placedAt": { "type": "string", "format": "date-time" }
+        }
+      },
+      "Line": {
+        "type": "object",
+        "required": ["sku", "quantity"],
+        "properties": {
+          "sku": { "type": "string" },
+          "quantity": { "type": "number", "minimum": 1 }
+        }
+      },
+      "Money": {
+        "type": "object",
+        "required": ["amount", "currency"],
+        "properties": {
+          "amount": { "type": "integer" },
+          "currency": { "type": "string", "pattern": "^[A-Z]{3}$" }
+        }
+      }
+    }
+  }
+}

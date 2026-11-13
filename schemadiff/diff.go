@@ -77,11 +77,11 @@ type Change struct {
 	Message  string   `json:"message"`
 }
 
-// Compare lists every difference between old and new that affects which
+// Compare lists every difference between before and after that affects which
 // documents are valid, in a stable order.
-func Compare(old, new *Schema, mode Mode) []Change {
+func Compare(before, after *Schema, mode Mode) []Change {
 	c := &comparer{mode: mode, active: map[[2]*Schema]bool{}}
-	c.compare("$", old, new)
+	c.compare("$", before, after)
 	return c.changes
 }
 
